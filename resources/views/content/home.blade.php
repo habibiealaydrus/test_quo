@@ -37,7 +37,7 @@
                 <div class="col-7">
                     <div class="card-body text-nowrap">
                         <h5 class="card-title mb-0">Welcome, {{Auth::user()->name}}</h5>
-                        <p class="mb-2">Integration Quotation Application</p>
+                        <p class="mb-2">Integration Quotation Application Doang ya</p>
                         @if (in_array(auth()->user()->role, [1,2,3]))
                         <h4 class="text-primary mb-1"> {{$data['allQuotation']->count()}} Quotation</h4>
                         @elseif (in_array(auth()->user()->role, [4,5,6]))
