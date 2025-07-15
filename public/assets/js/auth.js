@@ -1,0 +1,136 @@
+const formAuthentication = document.querySelector('#formAuthentication');
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  (function () {
+    // Form validation for Add new record
+    if (formAuthentication) {
+      const fv = FormValidation.formValidation(formAuthentication, {
+        fields: {
+          name: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your full name'
+              }
+            }
+          },
+          email: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your email'
+              },
+              emailAddress: {
+                message: 'Please enter valid email address'
+              }
+            }
+          },
+          'email': {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your email'
+              }
+            }
+          },
+          password: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your password'
+              },
+              stringLength: {
+                min: 6,
+                message: 'Password must be more than 6 characters'
+              }
+            }
+          },
+          'password_confirmation': {
+            validators: {
+              notEmpty: {
+                message: 'Please confirm password'
+              },
+              identical: {
+                compare: function () {
+                  return formAuthentication.querySelector('[name="password"]').value;
+                },
+                message: 'The password and its confirm are not the same'
+              },
+              stringLength: {
+                min: 6,
+                message: 'Password must be more than 6 characters'
+              }
+            }
+          },
+          terms: {
+            validators: {
+              notEmpty: {
+                message: 'Please agree terms & conditions'
+              }
+            }
+          }
+        },
+        plugins: {
+          trigger: new FormValidation.plugins.Trigger(),
+          bootstrap5: new FormValidation.plugins.Bootstrap5({
+            eleValidClass: '',
+            rowSelector: '.mb-3'
+          }),
+          submitButton: new FormValidation.plugins.SubmitButton(),
+
+          defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+          autoFocus: new FormValidation.plugins.AutoFocus()
+        },
+        init: instance => {
+          instance.on('plugins.message.placed', function (e) {
+            if (e.element.parentElement.classList.contains('input-group')) {
+              e.element.parentElement.insertAdjacentElement('afterend', e.messageElement);
+            }
+          });
+        }
+      });
+    }
+
+    //  Two Steps Verification
+    const numeralMask = document.querySelectorAll('.numeral-mask');
+
+    // Verification masking
+    if (numeralMask.length) {
+      numeralMask.forEach(e => {
+        new Cleave(e, {
+          numeral: true
+        });
+      });
+    }
+  })();
+  
+    // Default
+    if (select2.length) {
+      select2.each(function () {
+        var $this = $(this);
+        $this.wrap('<div class="position-relative"></div>').select2({
+          placeholder: 'Select value',
+          dropdownParent: $this.parent()
+        });
+      });
+    }
+  
+    // Select2 Icons
+    if (select2Icons.length) {
+      // custom template to render icons
+      function renderIcons(option) {
+        if (!option.id) {
+          return option.text;
+        }
+        var $icon = "<i class='" + $(option.element).data('icon') + " me-2'></i>" + option.text;
+  
+        return $icon;
+      }
+      select2Icons.wrap('<div class="position-relative"></div>').select2({
+        dropdownParent: select2Icons.parent(),
+        templateResult: renderIcons,
+        templateSelection: renderIcons,
+        escapeMarkup: function (es) {
+          return es;
+        }
+      });
+    }
+});
+
+
